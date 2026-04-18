@@ -1,0 +1,58 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+public class AddRemovePeek {
+    public static void main(String[] args) {
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(10);
+        q.add(20);
+        q.add(30);
+        q.add(40);
+        q.add(50);
+        addAtIndex(q,3,60);
+
+        removeAtIndex(q,3);
+
+        showPeekAtIndex(q,2);
+
+    }
+    public static void display(Queue<Integer> q){
+        int n = q.size();
+        for(int i = 0;i < n;i++){
+            System.out.print(q.peek()+" ");
+            q.add(q.remove());
+        }
+        System.out.println();
+    }
+    public static void addAtIndex(Queue<Integer> q,int index,int val){
+        int n = q.size();
+        for(int i = 0;i < index;i++){
+            q.add(q.remove());
+        }
+        q.add(val);
+        for(int i = 0;i < n-index;i++){
+            q.add(q.remove());
+        }
+        display(q);
+    }
+    public static void removeAtIndex(Queue<Integer> q,int index){
+        int n = q.size();
+        for(int i = 0;i < index;i++){
+            q.add(q.remove());
+        }
+        q.remove();
+        int m = q.size();// current size after removing at index
+        for(int i = 0;i < m-index;i++){
+            q.add(q.remove());
+        }
+        display(q);
+    }
+    public static void showPeekAtIndex(Queue<Integer> q,int index){
+        int n = q.size();
+        for(int i = 0;i < index;i++){
+            q.add(q.remove());
+        }
+        q.peek();
+        display(q);
+    }
+}
