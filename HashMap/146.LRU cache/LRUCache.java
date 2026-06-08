@@ -1,19 +1,21 @@
 class LRUCache {
 
-    class Node{
+    class Node {
         int key;
         int value;
         Node next;
         Node prev;
-        Node(int key,int value){
+
+        Node(int key, int value) {
             this.key = key;
             this.value = value;
         }
     }
-    Node head = new Node(-1,-1);
-    Node tail = new Node(-1,-1);
 
-    HashMap<Integer,Node> map = new HashMap<>();
+    Node head = new Node(-1, -1);
+    Node tail = new Node(-1, -1);
+
+    HashMap<Integer, Node> map = new HashMap<>();
     int cap;
 
     public LRUCache(int capacity) {
@@ -21,42 +23,44 @@ class LRUCache {
         head.next = tail;
         tail.prev = head;
     }
-    
+
     public int get(int key) {
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             Node resNode = map.get(key);
             int result = resNode.value;
             map.remove(key);
             deleteNode(resNode);
             addNode(resNode);
-            map.put(key,head.next);
+            map.put(key, head.next);
             return result;
         }
         return -1;
     }
-    
+
     public void put(int key, int value) {
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             Node rep = map.get(key);
             map.remove(key);
             deleteNode(rep);
         }
-        if(map.size() == cap){
+        if (map.size() == cap) {
             map.remove(tail.prev.key);
             deleteNode(tail.prev);
         }
 
-        addNode(new Node(key,value));
-        map.put(key,head.next);
+        addNode(new Node(key, value));
+        map.put(key, head.next);
     }
-    public void addNode(Node newNode){
+
+    public void addNode(Node newNode) {
         Node temp = head.next;
         newNode.next = temp;
         newNode.prev = head;
         head.next = newNode;
         temp.prev = newNode;
     }
-    public void deleteNode(Node delNode){
+
+    public void deleteNode(Node delNode) {
         Node delNext = delNode.prev;
         Node delPrev = delNode.next;
         delNext.next = delPrev;
