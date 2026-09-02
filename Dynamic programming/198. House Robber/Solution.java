@@ -22,7 +22,6 @@ class Solution {
 // return loot(0 , nums);
 // }
 // public int loot(int idx , int[] arr){
-
 // if(idx >= arr.length) return 0;
 // if(dp[idx] != -1){
 // return dp[idx];
@@ -30,7 +29,6 @@ class Solution {
 // int pick = arr[idx] + loot(idx + 2 , arr);
 // int skip = loot(idx + 1 , arr);
 // return dp[idx] = Math.max(pick , skip);
-
 // }
 
 // recuresive approch
