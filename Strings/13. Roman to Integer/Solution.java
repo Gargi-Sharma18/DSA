@@ -1,23 +1,26 @@
+
 class Solution {
     public int romanToInt(String s) {
 
-        int sum = 0;
-        int n = s.length();
+        int total = 0;
+        for (int i = 0; i < s.length(); i++) {
 
-        for (int i = 0; i < n; i++) {
-            int curr = value(s.charAt(i));
-
-            if ((i + 1) < n && curr < value(s.charAt(i + 1))) {
-                sum -= curr;
+            if (i > 0 && roman(s.charAt(i - 1)) < roman(s.charAt(i))) {
+                total += roman(s.charAt(i)) - roman(s.charAt(i - 1)) - roman(s.charAt(i - 1)); // do baar minus iss liye
+                                                                                               // kiya kyu ki total me
+                                                                                               // current value yoh plus
+                                                                                               // ho hi thi hai toh do
+                                                                                               // baar aajayi value jo
+                                                                                               // choti hai cuurent se
             } else {
-                sum += curr;
+                total += roman(s.charAt(i));
             }
         }
-        return sum;
+        return total;
     }
 
-    public static char value(char c) {
-        switch (c) {
+    public static int roman(char rom) {
+        switch (rom) {
             case 'I':
                 return 1;
             case 'V':
@@ -32,7 +35,8 @@ class Solution {
                 return 500;
             case 'M':
                 return 1000;
+            default:
+                return -1;
         }
-        return '0';
     }
 }
